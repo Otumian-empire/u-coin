@@ -38,3 +38,5 @@ const genesisBlock = new Block(
 |     5      |  1151284   |   6.987509167000652    |
 |     6      |  25863102  |   151.50092688599975   |
 |     7      |     -      |           -            |
+
+-   when rewarding miners, doesn't another miner has to mine the reward? and that miner would require another miner to mine their reward... and so on and so forth?

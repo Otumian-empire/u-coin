@@ -9,7 +9,9 @@ export function Log<T>(someRecord: T) {
 }
 
 export interface TransactionType {
-    message: string;
+    _fromAddress: string;
+    _toAddress: string;
+    _amount: number;
 }
 
 export interface BlockType<T> {

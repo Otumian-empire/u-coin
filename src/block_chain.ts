@@ -1,20 +1,24 @@
 import Block from "./block";
-import { TransactionType } from "./util";
+import Transaction from "./transaction";
+import { Log } from "./util";
 
 export default class BlockChain {
-    _chain: Block<TransactionType>[];
-    _difficulty = 3;
+    _chain: Block<Transaction>[];
+    _pendingTransactions: Transaction[];
+    _difficulty = 2;
+    _miningReward = 0.005;
 
     constructor() {
         this._chain = [this.createGenesisBlock()];
+        this._pendingTransactions = [];
     }
 
     createGenesisBlock() {
-        const genesisBlock = new Block(
-            0,
+        const genesisBlock = new Block<Transaction>(
             new Date("2024-10-02T04:45:06.903Z"),
             // the data could have been anything
-            { message: "This was supposed to be a joke 1" },
+            [new Transaction("genesisAddress0", "genesisAddress1", 100)],
+            // new Transaction("A", "b", 0),
             "0"
         );
 
@@ -27,7 +31,44 @@ export default class BlockChain {
         return this._chain[this._chain.length - 1];
     }
 
-    addBlock(newBlock: Block<TransactionType>) {
+    minePendingTransactions(miningRewardAddress: string) {
+        let block = new Block<Transaction>(
+            new Date(),
+            this._pendingTransactions
+        );
+
+        block.minBlock(this._difficulty);
+
+        Log({ log: `Block mined: ${block._hash}` });
+
+        this._chain.push(block);
+
+        this._pendingTransactions = [
+            new Transaction("genesisAddress1", miningRewardAddress, this._miningReward),
+        ];
+    }
+
+    createTransaction(transaction: Transaction) {
+        this._pendingTransactions.push(transaction);
+    }
+
+    getBalanceOfAddress(address: string) {
+        let balance = 0;
+
+        for (const block of this._chain) {
+            for (const transaction of block.transactions) {
+                if (transaction._fromAddress === address) {
+                    balance -= transaction._amount;
+                } else if (transaction._toAddress === address) {
+                    balance += transaction._amount;
+                }
+            }
+        }
+
+        return balance;
+    }
+
+    addBlock(newBlock: Block<Transaction>) {
         newBlock._previousHash = this.getLatestBlock()._hash;
         // newBlock._hash = newBlock.calculateHash();
         newBlock.minBlock(this._difficulty);
