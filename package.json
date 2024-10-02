@@ -1,0 +1,32 @@
+{
+    "name": "u-coin",
+    "version": "1.0.0",
+    "main": "dist/main.js",
+    "author": "otumian <popecan1000@gmail.com>",
+    "license": "MIT",
+    "devDependencies": {
+        "@biomejs/biome": "1.9.3",
+        "@swc/cli": "^0.4.0",
+        "@swc/core": "^1.7.10",
+        "@types/node": "^16.11.10",
+        "nodemon": "^3.0.1",
+        "rimraf": "^4.1.2",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.5.4"
+    },
+    "scripts": {
+        "prebuild": "rimraf ./dist",
+        "build": "swc src --strip-leading-paths --out-dir dist",
+        "start": "node dist/main.js",
+        "dev": "nodemon --watch src --ext ts --exec 'clear && npm run build && npm run start'",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "lint": "tsc",
+        "bio-format": "biome format ./src",
+        "bio-format:fix": "biome format --write ./src",
+        "bio-lint": "biome lint ./src",
+        "bio-lint:fix": "biome lint --write ./src",
+        "bio-check": "biome check ./src",
+        "bio-check:fix": "biome check --write ./src"
+    },
+    "dependencies": {}
+}

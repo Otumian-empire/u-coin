@@ -1,0 +1,77 @@
+{
+    "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+    "formatter": {
+        "enabled": true,
+        "formatWithErrors": false,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineEnding": "lf",
+        "lineWidth": 80,
+        "attributePosition": "auto",
+        "ignore": [
+            "**/node_modules",
+            "**/package-lock.json",
+            "**/package.json",
+            "**/.vscode",
+            "**/docs",
+            "**/coverage",
+            "**/build",
+            "**/logs",
+            "**/dist",
+            "**/cspell.json",
+            "**/.vscode/",
+            "**/build/",
+            "**/tmp/",
+            "**/temp/",
+            "**/lib-cov",
+            "**/*.seed",
+            "**/*.log",
+            "**/*.csv",
+            "**/*.dat",
+            "**/*.out",
+            "**/*.pid",
+            "**/*.gz",
+            "**/*.swp",
+            "**/pids",
+            "**/results",
+            "**/tmp",
+            "**/.env",
+            "**/bower_components",
+            "**/.idea",
+            "**/*.iml",
+            "**/.DS_Store",
+            "**/Thumbs.db",
+            "dist/**/*",
+            "**/yarn.lock",
+            "**/.editorconfig",
+            "**/.prettierignore",
+            "**/.prettierrc.json",
+            "**/logs/*",
+            "**/save-requests",
+            "**/documentation",
+            "**/.github"
+        ]
+    },
+    "organizeImports": {
+        "enabled": true
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "recommended": true
+        }
+    },
+    "javascript": {
+        "formatter": {
+            "jsxQuoteStyle": "double",
+            "quoteProperties": "asNeeded",
+            "trailingCommas": "es5",
+            "semicolons": "always",
+            "arrowParentheses": "always",
+            "bracketSpacing": true,
+            "bracketSameLine": false,
+            "quoteStyle": "double",
+            "attributePosition": "auto"
+        }
+    }
+}
