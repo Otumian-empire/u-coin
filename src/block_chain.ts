@@ -88,10 +88,10 @@ export default class BlockChain {
         return balance;
     }
 
-    addBlock(newBlock: Block<Transaction>) {
+    addBlock(newBlock: Block) {
         newBlock._previousHash = this.getLatestBlock()._hash;
         // newBlock._hash = newBlock.calculateHash();
-        newBlock.minBlock(this._difficulty);
+        newBlock.mineBlock(this._difficulty);
 
         this._chain.push(newBlock);
     }
@@ -101,11 +101,15 @@ export default class BlockChain {
             const previousBlock = this._chain[index - 1];
             const currentBlock = this._chain[index];
 
+            if (!currentBlock.hasValidTransactions()) {
+                return false;
+            }
+
             if (currentBlock._hash !== currentBlock.calculateHash()) {
                 return false;
             }
 
-            if (currentBlock._previousHash !== previousBlock._hash) {
+            if (currentBlock._previousHash !== previousBlock.calculateHash()) {
                 return false;
             }
         }
