@@ -1,13 +1,18 @@
+import type Transaction from "./transaction";
 import { HashWithSha256 } from "./util";
 
-export default class Block<T> {
+export default class Block {
     _previousHash: string;
     _timestamp: Date;
-    transactions: T[];
+    transactions: Transaction[];
     _hash: string;
     _nonce: number;
 
-    constructor(timestamp: Date, transactions: T[], previousHash = "") {
+    constructor(
+        timestamp: Date,
+        transactions: Transaction[],
+        previousHash = ""
+    ) {
         this._timestamp = timestamp;
         this.transactions = transactions;
         this._previousHash = previousHash;
@@ -23,7 +28,7 @@ export default class Block<T> {
         );
     }
 
-    minBlock(difficulty: number) {
+    mineBlock(difficulty: number) {
         while (
             this._hash.substring(0, difficulty) !==
             Array(difficulty + 1).join("0")
