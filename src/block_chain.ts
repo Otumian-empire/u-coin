@@ -1,9 +1,9 @@
 import Block from "./block";
 import Transaction from "./transaction";
-import { Log } from "./util";
+import { GENESIS_WALLET, Log } from "./util";
 
 export default class BlockChain {
-    _chain: Block<Transaction>[];
+    _chain: Block[];
     _pendingTransactions: Transaction[];
     _difficulty = 2;
     _miningReward = 0.005;
@@ -14,15 +14,21 @@ export default class BlockChain {
     }
 
     createGenesisBlock() {
-        const genesisBlock = new Block<Transaction>(
+        const genesisBlock = new Block(
             new Date("2024-10-02T04:45:06.903Z"),
             // the data could have been anything
-            [new Transaction("genesisAddress0", "genesisAddress1", 100)],
+            [
+                new Transaction(
+                    GENESIS_WALLET.ADDR_1,
+                    GENESIS_WALLET.ADDR_2,
+                    100
+                ),
+            ],
             // new Transaction("A", "b", 0),
             "0"
         );
 
-        genesisBlock.minBlock(this._difficulty);
+        genesisBlock.mineBlock(this._difficulty);
 
         return genesisBlock;
     }
