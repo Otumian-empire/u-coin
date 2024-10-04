@@ -56,12 +56,19 @@ export default class BlockChain {
 
         this._chain.push(block);
 
-        this._pendingTransactions = [
-            new Transaction("genesisAddress1", miningRewardAddress, this._miningReward),
-        ];
+        this._pendingTransactions = [];
+        Log({ minedBlock: `Block mined: ${block._hash}` });
     }
 
-    createTransaction(transaction: Transaction) {
+    addTransaction(transaction: Transaction) {
+        if (!transaction._fromAddress || !transaction._toAddress) {
+            throw new Error("Transaction must have to and from address");
+        }
+
+        if (!transaction.isValid()) {
+            throw new Error("Can not add invalid transaction to chain");
+        }
+
         this._pendingTransactions.push(transaction);
     }
 
