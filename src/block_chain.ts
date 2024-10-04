@@ -32,14 +32,21 @@ export default class BlockChain {
     }
 
     minePendingTransactions(miningRewardAddress: string) {
-        let block = new Block<Transaction>(
-            new Date(),
-            this._pendingTransactions
+        const miningRewardTransaction = new Transaction(
+            GENESIS_WALLET.ADDR_1,
+            miningRewardAddress,
+            this._miningReward
         );
 
-        block.minBlock(this._difficulty);
+        this._pendingTransactions.push(miningRewardTransaction);
 
-        Log({ log: `Block mined: ${block._hash}` });
+        const block = new Block(
+            new Date(),
+            this._pendingTransactions,
+            this.getLatestBlock()._hash
+        );
+
+        block.mineBlock(this._difficulty);
 
         this._chain.push(block);
 
