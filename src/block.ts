@@ -32,4 +32,14 @@ export default class Block<T> {
             this._hash = this.calculateHash();
         }
     }
+
+    hasValidTransactions() {
+        for (const transaction of this.transactions) {
+            if (!transaction.isValid()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
